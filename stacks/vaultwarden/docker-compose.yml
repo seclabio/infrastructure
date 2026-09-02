@@ -1,0 +1,29 @@
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    restart: unless-stopped
+    environment:
+      DOMAIN: https://${VAULTWARDEN_DOMAIN}
+      SIGNUPS_ALLOWED: "false"
+      ADMIN_TOKEN: ${VAULTWARDEN_ADMIN_TOKEN}
+      # Transparent-proxy auth (Pangolin) gates who can reach this at all;
+      # SSO here is the app-native login layer on top of that.
+      SSO_ENABLED: "true"
+      SSO_ONLY: "false"
+      SSO_SIGNUPS_ALLOWED: "true"
+      SSO_AUTHORITY: ${OIDC_ISSUER}
+      SSO_CLIENT_ID: ${VAULTWARDEN_OIDC_CLIENT_ID}
+      SSO_CLIENT_SECRET: ${VAULTWARDEN_OIDC_CLIENT_SECRET}
+      SSO_SCOPES: "openid email profile"
+    volumes:
+      - vaultwarden-data:/data
+    networks:
+      - pangolin_net
+
+volumes:
+  vaultwarden-data:
+
+networks:
+  pangolin_net:
+    external: true

@@ -1,5 +1,5 @@
 services:
-  vaultwarden:
+  secvaultwarden:
     image: vaultwarden/server:latest
     container_name: vaultwarden
     restart: unless-stopped
@@ -7,8 +7,6 @@ services:
       DOMAIN: https://${VAULTWARDEN_DOMAIN}
       SIGNUPS_ALLOWED: "false"
       ADMIN_TOKEN: ${VAULTWARDEN_ADMIN_TOKEN}
-      # Transparent-proxy auth (Pangolin) gates who can reach this at all;
-      # SSO here is the app-native login layer on top of that.
       SSO_ENABLED: "true"
       SSO_ONLY: "false"
       SSO_SIGNUPS_ALLOWED: "true"

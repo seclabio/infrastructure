@@ -1,6 +1,6 @@
 services:
   secvaultwarden:
-    image: vaultwarden/server:latest
+    image: vaultwarden/server::1.36.0
     container_name: secvaultwarden
     restart: unless-stopped
     environment:

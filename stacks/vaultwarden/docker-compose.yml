@@ -1,7 +1,7 @@
 services:
   secvaultwarden:
     image: vaultwarden/server:latest
-    container_name: vaultwarden
+    container_name: secvaultwarden
     restart: unless-stopped
     environment:
       DOMAIN: https://${VAULTWARDEN_DOMAIN}

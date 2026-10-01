@@ -1,14 +1,3 @@
-# Pinned to the same image set as kubernetes/apps/seclab-ghostwriter, plus
-# talboot (the custom Talboot dropbox-ISO feature -- configured in the
-# Django admin under Talboot Configuration, not via env vars here; it talks
-# to http://talboot:8080 over the internal network by default).
-# These images are private: `docker login ghcr.io` before pulling.
-#
-# Secrets (everything referenced below as ${VAR}) are set in Dockhand's
-# per-stack env UI, not committed here. Use your existing
-# ~/projects/Ghostwriter/.env (already built for this exact deploy.yml) as
-# the source of values -- just double check DJANGO_ALLOWED_HOSTS and
-# DJANGO_CSRF_TRUSTED_ORIGINS include this stack's public domain.
 volumes:
   ghostwriter-postgres-data: {}
   ghostwriter-postgres-data-backups: {}
@@ -82,10 +71,6 @@ services:
     volumes:
       - ghostwriter-staticfiles:/app/staticfiles
       - ghostwriter-media:/app/ghostwriter/media
-      # HTTP-only override: disables Secure cookie flags and HSTS so the app works over plain HTTP
-      # behind Pangolin's TLS termination. If Pangolin ever stops terminating TLS for this
-      # resource, remove this line and set DJANGO_CSRF_COOKIE_SECURE=True /
-      # DJANGO_SESSION_COOKIE_SECURE=True instead, then force-recreate django and queue.
       - ./settings_override.py:/app/config/settings/production.d/z_override.py:ro
     networks:
       - internal
@@ -137,8 +122,6 @@ services:
       start_period: ${HEALTHCHECK_START}
     networks:
       internal:
-      # Pangolin's Newt reaches this container by this alias -- target it as
-      # `ghostwriter-nginx:80` when creating the Pangolin Resource.
       pangolin_net:
         aliases:
           - ghostwriter-nginx

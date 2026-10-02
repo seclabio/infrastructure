@@ -6,7 +6,7 @@ volumes:
 
 services:
   django: &django
-    image: ghcr.io/seclabio/ghostwriter_django:v7.2.7
+    image: ghcr.io/seclabio/ghostwriter_django::v7.2.7-V0.0.5
     container_name: ghostwriter-django
     restart: unless-stopped
     depends_on:
@@ -79,7 +79,7 @@ services:
       - internal
 
   postgres:
-    image: ghcr.io/seclabio/ghostwriter_postgres:v7.2.7
+    image: ghcr.io/seclabio/ghostwriter_postgres::v7.2.7-V0.0.5
     container_name: ghostwriter-postgres
     restart: unless-stopped
     volumes:
@@ -104,7 +104,7 @@ services:
       - internal
 
   nginx:
-    image: ghcr.io/seclabio/ghostwriter_nginx:v7.2.7
+    image: ghcr.io/seclabio/ghostwriter_nginx::v7.2.7-V0.0.5
     container_name: ghostwriter-nginx
     restart: unless-stopped
     depends_on:
@@ -130,7 +130,7 @@ services:
           - ghostwriter-nginx
 
   redis:
-    image: ghcr.io/seclabio/ghostwriter_redis:v7.2.7
+    image: ghcr.io/seclabio/ghostwriter_redis::v7.2.7-V0.0.5
     container_name: ghostwriter-redis
     labels:
       name: ghostwriter_redis
@@ -158,7 +158,7 @@ services:
     command: /start-queue
 
   graphql_engine:
-    image: ghcr.io/seclabio/ghostwriter_hasura:v7.2.7
+    image: ghcr.io/seclabio/ghostwriter_hasura::v7.2.7-V0.0.5
     container_name: ghostwriter-graphql-engine
     depends_on:
       postgres:
@@ -202,7 +202,7 @@ services:
       - internal
 
   collab-server:
-    image: ghcr.io/seclabio/ghostwriter_collab_server:v7.2.7
+    image: ghcr.io/seclabio/ghostwriter_collab_server::v7.2.7-V0.0.5
     container_name: ghostwriter-collab-server
     restart: unless-stopped
     depends_on:

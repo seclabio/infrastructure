@@ -218,7 +218,7 @@ services:
       - internal
 
   talboot:
-    image: ghcr.io/negativefeedback/tailboot:latest
+    image: ghcr.io/negativefeedback/tailboot:v2026.10.07.184544
     container_name: ghostwriter-talboot
     restart: unless-stopped
     labels:

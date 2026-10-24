@@ -113,6 +113,8 @@ services:
       - ghostwriter-media:/app/media
       - ghostwriter-staticfiles:/app/staticfiles
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "100.71.55.108:80:80"
     labels:
       name: ghostwriter_nginx
     environment:
